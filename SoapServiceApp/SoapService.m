@@ -33,17 +33,7 @@
     
     // Copy the REQUEST_XML here as follows:
     NSString *soapMessage = [NSString stringWithFormat:@
-                             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                             "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/"
-                             " xmlns:tem=\"http://tempuri.org/\">"
-                             "   <soapenv:Header/>"
-                             "   <soapenv:Body>"
-                             "      <tem:Add>"
-                             "         <tem:intA>99999</tem:intA>"
-                             "         <tem:intB>100001</tem:intB>"
-                             "      </tem:Add>"
-                             "   </soapenv:Body>"
-                             "</soapenv:Envelope>"
+                             "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\"> <soapenv:Header/> <soapenv:Body> <tem:Add> <tem:intA>99999</tem:intA> <tem:intB>100001</tem:intB> </tem:Add> </soapenv:Body> </soapenv:Envelope>"
     ];
     
     //Now create a request to the URL
@@ -51,16 +41,20 @@
     NSURL *url = [NSURL URLWithString:@"http://www.dneonline.com/calculator.asmx"]; // Copy here the URL
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     
+    
+    
     NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
     
     
     //add required headers to the request
     
-    [theRequest addValue: @"text/xml;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [theRequest addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     [theRequest addValue: @"http://tempuri.org/Add" forHTTPHeaderField:@"SOAPAction"]; // copy here the SOAP_ACTION
     
     [theRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    
+//    [theRequest addValue:@"www.dneonline.com" forHTTPHeaderField:@"Host"];
     
     [theRequest setHTTPMethod:@"POST"];
     
